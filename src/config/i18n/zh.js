@@ -130,7 +130,7 @@ export default {
         "local": "本地下载",
         "remote": "OpenPGP.org"
       },
-      "info": "指纹: 05173af7d9a4d731c22b5279fd10a46ef57782894e8b45991ace2bac686cb45876"
+      "info": "指纹: E802A6BF8C2B8ED71B9D08FFC6881736D7BC83D8"
     },
     "pgp": {
       "title": "PGP签名验证",

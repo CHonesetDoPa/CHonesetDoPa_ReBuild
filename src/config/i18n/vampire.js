@@ -130,7 +130,7 @@ export default {
         "local": "本地下载",
         "remote": "OpenPGP"
       },
-      "info": "血族印记: 05173af7d9a4d731c22b5279fd10a46ef57782894e8b45991ace2bac686cb45876"
+      "info": "血族印记: E802A6BF8C2B8ED71B9D08FFC6881736D7BC83D8"
     },
     "pgp": {
       "title": "血族印记验证法阵",
