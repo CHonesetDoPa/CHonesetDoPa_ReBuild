@@ -84,6 +84,11 @@ export default defineConfig(({ mode }) => {
             },
         },
 
+        esbuild: mode === 'production' ? {
+            drop: ['console', 'debugger'],
+            legalComments: 'none'
+        } : {},
+
         define: {
             __APP_MODE__: JSON.stringify(env.MODE),
             __API_BASE__: JSON.stringify(env.VITE_API_BASE || ''),
