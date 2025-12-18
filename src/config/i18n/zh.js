@@ -148,7 +148,8 @@ export default {
       "buttons": {
         "verify": "验证签名",
         "clear": "清空",
-        "keyInfo": "查看公钥信息"
+        "keyInfo": "查看公钥信息",
+        "import": "导入文件"
       }
     },
     "security": {

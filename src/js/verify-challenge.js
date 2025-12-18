@@ -71,14 +71,30 @@ async function verifyPGPSignature() {
  */
 async function performRealVerification(message, signature) {
     try {
+        // Clean and validate inputs
+        message = message.trim();
+        signature = cleanSignatureText(signature);
+        
+        // Validate signature format
+        if (!signature.includes('-----BEGIN PGP SIGNATURE-----') || 
+            !signature.includes('-----END PGP SIGNATURE-----')) {
+            throw new Error('无效的PGP签名格式');
+        }
+        
         // Parse the public key
         const publicKey = await openpgp.readKey({ armoredKey: CH_PUBLIC_KEY });
         
         // Create message object
         const messageObj = await openpgp.createMessage({ text: message });
         
-        // Parse the signature
-        const signatureObj = await openpgp.readSignature({ armoredSignature: signature });
+        // Parse the signature with better error handling
+        let signatureObj;
+        try {
+            signatureObj = await openpgp.readSignature({ armoredSignature: signature });
+        } catch (sigError) {
+            console.error('Signature parsing error:', sigError);
+            throw new Error(`签名解析失败: ${sigError.message}`);
+        }
         
         // Verify the signature
         const verificationResult = await openpgp.verify({
@@ -261,8 +277,328 @@ async function initializePage() {
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', initializePage);
 
+/**
+ * Import .sig file functionality
+ */
+function importSigFile() {
+    const fileInput = document.getElementById('sig-file-input');
+    fileInput.click();
+}
+
+/**
+ * Handle .sig file import
+ */
+async function handleSigFileImport(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    try {
+        console.log(`Processing file: ${file.name} (${file.size} bytes)`);
+        
+        // Determine file type based on extension and content
+        const isKeyFile = isKeyFileExtension(file.name);
+        const isSignatureFile = isSignatureFileExtension(file.name);
+        
+        let content;
+        
+        if (isKeyFile) {
+            // Handle key files (for future key management)
+            content = await readFileWithEncoding(file);
+            content = cleanSignatureText(content);
+            
+            if (content.includes('-----BEGIN PGP PUBLIC KEY BLOCK-----')) {
+                showResult('info', '密钥文件检测', '检测到PGP公钥文件。当前版本使用内置密钥进行验证。');
+                return;
+            } else {
+                throw new Error('无效的密钥文件格式');
+            }
+            
+        } else if (isSignatureFile) {
+            // Handle signature files (.sig, .asc with signature)
+            const arrayBuffer = await readFileAsArrayBuffer(file);
+            content = await convertBinaryToArmored(arrayBuffer);
+            
+            const parsed = parseSigFile(content, file.name);
+            
+            if (parsed.signature) {
+                document.getElementById('signature-input').value = parsed.signature;
+            }
+            if (parsed.message) {
+                document.getElementById('message-input').value = parsed.message;
+            }
+            
+            showImportResult(file, 'signature', parsed);
+            
+        } else {
+            // Handle source files (documents to be verified)
+            const arrayBuffer = await readFileAsArrayBuffer(file);
+            const textContent = new TextDecoder('utf-8').decode(arrayBuffer);
+            
+            // Check if it contains a signature (signed document)
+            if (textContent.includes('-----BEGIN PGP SIGNATURE-----')) {
+                // It's a signed document - parse both message and signature
+                const parsed = parseSigFile(textContent, file.name);
+                
+                if (parsed.message) {
+                    document.getElementById('message-input').value = parsed.message;
+                }
+                if (parsed.signature) {
+                    document.getElementById('signature-input').value = parsed.signature;
+                }
+                
+                showImportResult(file, 'signed_document', parsed);
+            } else {
+                // It's a source document - put content in message box
+                document.getElementById('message-input').value = textContent;
+                
+                showResult('success', '源文件导入成功', 
+                    `已导入文件内容到消息框: ${file.name} (${(file.size/1024).toFixed(1)}KB)\n请单独导入对应的签名文件到签名框`);
+            }
+        }
+        
+    } catch (error) {
+        console.error('Error importing file:', error);
+        showResult('error', '文件导入失败', `无法读取文件 ${file.name}: ${error.message}`);
+    }
+    
+    // Clear the input for next use
+    event.target.value = '';
+}
+
+/**
+ * Read file as text with encoding detection
+ */
+function readFileWithEncoding(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            let text = e.target.result;
+            // Clean up common encoding issues
+            text = text.replace(/^\uFEFF/, ''); // Remove BOM
+            resolve(text);
+        };
+        reader.onerror = () => reject(new Error('无法读取文件'));
+        // Try UTF-8 first
+        reader.readAsText(file, 'UTF-8');
+    });
+}
+
+/**
+ * Read file as text (fallback method)
+ */
+function readFileAsText(file) {
+    return readFileWithEncoding(file);
+}
+
+/**
+ * Read file as array buffer
+ */
+function readFileAsArrayBuffer(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => resolve(e.target.result);
+        reader.onerror = () => reject(new Error('无法读取二进制文件'));
+        reader.readAsArrayBuffer(file);
+    });
+}
+
+/**
+ * Convert binary signature to armored format
+ */
+async function convertBinaryToArmored(arrayBuffer) {
+    try {
+        // First try to parse as binary PGP signature
+        const uint8Array = new Uint8Array(arrayBuffer);
+        
+        // Check if it's actually a binary signature (starts with specific bytes)
+        if (uint8Array[0] === 0x01 || uint8Array[0] === 0x02 || 
+            (uint8Array[0] & 0x80) !== 0) {
+            // This looks like binary PGP data
+            console.log('Detected binary PGP signature, converting...');
+            const signature = await openpgp.readSignature({ 
+                binarySignature: uint8Array 
+            });
+            const armored = signature.armor();
+            return cleanSignatureText(armored);
+        } else {
+            // Might be text stored as binary, try to decode
+            console.log('Binary data might be text, trying to decode...');
+            const text = new TextDecoder('utf-8').decode(arrayBuffer);
+            if (text.includes('-----BEGIN PGP SIGNATURE-----')) {
+                console.log('Found armored signature in binary data');
+                return cleanSignatureText(text);
+            } else {
+                throw new Error('Binary data does not contain recognizable PGP signature');
+            }
+        }
+    } catch (error) {
+        console.warn('Binary conversion failed:', error);
+        // Try as text fallback
+        const text = new TextDecoder('utf-8').decode(arrayBuffer);
+        if (text.includes('-----BEGIN PGP SIGNATURE-----')) {
+            console.log('Fallback: treating as text signature');
+            return cleanSignatureText(text);
+        }
+        throw new Error(`无法解析文件内容: ${error.message}`);
+    }
+}
+
+/**
+ * Clean and validate signature text
+ */
+function cleanSignatureText(text) {
+    // Remove BOM and normalize line endings
+    let cleaned = text.replace(/^\uFEFF/, '').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+    
+    // Ensure proper PGP signature format
+    if (cleaned.includes('-----BEGIN PGP SIGNATURE-----') && cleaned.includes('-----END PGP SIGNATURE-----')) {
+        // Extract just the signature block
+        const startIndex = cleaned.indexOf('-----BEGIN PGP SIGNATURE-----');
+        const endIndex = cleaned.indexOf('-----END PGP SIGNATURE-----') + '-----END PGP SIGNATURE-----'.length;
+        cleaned = cleaned.substring(startIndex, endIndex);
+        
+        // Split into lines for proper formatting
+        const lines = cleaned.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+        
+        // Reconstruct with proper format
+        let result = '';
+        let inHeader = true;
+        
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+            
+            if (line === '-----BEGIN PGP SIGNATURE-----') {
+                result += line + '\n';
+                inHeader = true;
+            } else if (line === '-----END PGP SIGNATURE-----') {
+                result += line;
+                inHeader = false;
+            } else if (inHeader && line.includes(':')) {
+                // This is a header line (like Version: GnuPG)
+                result += line + '\n';
+            } else if (inHeader && !line.includes(':')) {
+                // First data line - add blank line before it
+                result += '\n' + line + '\n';
+                inHeader = false;
+            } else {
+                // Regular data line
+                result += line + '\n';
+            }
+        }
+        
+        cleaned = result.trim();
+    }
+    
+    return cleaned;
+}
+
+/**
+ * Check if file extension indicates a key file
+ */
+function isKeyFileExtension(fileName) {
+    const name = fileName.toLowerCase();
+    return name.includes('key') || name.includes('pub') || 
+           (name.endsWith('.asc') && (name.includes('key') || name.includes('pub')));
+}
+
+/**
+ * Check if file extension indicates a signature file
+ */
+function isSignatureFileExtension(fileName) {
+    const name = fileName.toLowerCase();
+    return name.endsWith('.sig') || name.endsWith('.pgp') || 
+           (name.endsWith('.asc') && !name.includes('key') && !name.includes('pub'));
+}
+
+/**
+ * Show import result with detailed info
+ */
+function showImportResult(file, type, parsed) {
+    const fileSize = `${file.name} (${(file.size/1024).toFixed(1)}KB)`;
+    
+    switch(type) {
+        case 'signature':
+            const messageInfo = parsed.message ? '包含原始消息' : '仅包含签名';
+            const signatureValid = parsed.signature && 
+                                  parsed.signature.includes('-----BEGIN PGP SIGNATURE-----') && 
+                                  parsed.signature.includes('-----END PGP SIGNATURE-----');
+            
+            const hasBlankLine = parsed.signature && (
+                parsed.signature.includes('-----BEGIN PGP SIGNATURE-----\n\n') ||
+                parsed.signature.match(/-----BEGIN PGP SIGNATURE-----\n[^-\n]*:\s*[^\n]*\n\n/)
+            );
+            
+            let statusMsg = `已导入签名文件: ${fileSize}\n${messageInfo}`;
+            if (signatureValid) {
+                statusMsg += '\n✓ 签名格式有效';
+                statusMsg += hasBlankLine ? '\n✓ 格式符合OpenPGP标准' : '\n✓ 格式已自动修正';
+            } else {
+                statusMsg += '\n⚠ 签名格式可能有问题';
+            }
+            
+            showResult('success', '签名文件导入成功', statusMsg);
+            break;
+            
+        case 'signed_document':
+            const hasMessage = !!parsed.message;
+            const hasSignature = !!parsed.signature;
+            
+            let docMsg = `已导入签名文档: ${fileSize}`;
+            if (hasMessage) docMsg += '\n✓ 消息内容已填入';
+            if (hasSignature) docMsg += '\n✓ 签名已填入';
+            
+            showResult('success', '签名文档导入成功', docMsg);
+            break;
+    }
+}
+function parseSigFile(content, fileName = '') {
+    const result = {
+        message: '',
+        signature: ''
+    };
+    
+    // Clean the content first
+    content = cleanSignatureText(content);
+    
+    // For .sig files (detached signatures), content is usually just the signature
+    if (fileName.endsWith('.sig') || fileName.endsWith('.pgp')) {
+        // Detached signature - only signature, no original message
+        if (content.includes('-----BEGIN PGP SIGNATURE-----')) {
+            result.signature = content;
+        } else {
+            // If it's a .sig file but doesn't contain armored signature,
+            // it might be raw binary that wasn't converted properly
+            throw new Error('签名文件格式无效或无法识别');
+        }
+    } else {
+        // For .asc files or other formats, try to parse both message and signature
+        const sigStart = content.indexOf('-----BEGIN PGP SIGNATURE-----');
+        const sigEnd = content.indexOf('-----END PGP SIGNATURE-----');
+        
+        if (sigStart !== -1 && sigEnd !== -1) {
+            // Extract signature
+            result.signature = content.substring(sigStart, sigEnd + '-----END PGP SIGNATURE-----'.length);
+            
+            // Extract message (everything before the signature)
+            if (sigStart > 0) {
+                result.message = content.substring(0, sigStart).trim();
+            }
+        } else if (content.includes('-----BEGIN PGP SIGNATURE-----')) {
+            // Just signature, no message
+            result.signature = content;
+        } else {
+            // If no signature found, treat entire content as message
+            result.message = content.trim();
+        }
+    }
+    
+    return result;
+}
+
 // Expose functions to global scope for HTML onclick handlers
 window.verifyPGPSignature = verifyPGPSignature;
 window.clearForm = clearForm;
 window.downloadPublicKey = downloadPublicKey;
 window.showPublicKeyInfo = showPublicKeyInfo;
+window.importSigFile = importSigFile;
+window.handleSigFileImport = handleSigFileImport;

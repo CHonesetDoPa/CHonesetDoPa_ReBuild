@@ -125,6 +125,23 @@ button, .btn, input[type="button"], input[type="submit"] {
     box-shadow: 0 4px 12px rgba(196, 113, 237, 0.3);
 }
 
+/* Import Button Styles */
+.btn-import {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+}
+
+.btn-import:hover {
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-import:active {
+    transform: translateY(-1px);
+}
+
 /* PGP Key Info */
 .pgp-info {
     background: var(--card-bg, #f8f9fa);
@@ -495,6 +512,17 @@ button, .btn, input[type="button"], input[type="submit"] {
     color: #ad1457;
 }
 
+.dark-mode .btn-import {
+    background: linear-gradient(135deg, #7e57c2 0%, #5e35b1 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(126, 87, 194, 0.3);
+}
+
+.dark-mode .btn-import:hover {
+    background: linear-gradient(135deg, #9575cd 0%, #7e57c2 100%);
+    box-shadow: 0 6px 16px rgba(126, 87, 194, 0.4);
+}
+
 /* ========== Vampire Mode Support ========== */
 .vampire-mode .verification-form,
 .vampire-mode .pgp-info,
@@ -635,4 +663,17 @@ button, .btn, input[type="button"], input[type="submit"] {
     color: white;
     border-color: var(--vampire-accent, #FF69B4);
     box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+}
+
+.vampire-mode .btn-import {
+    background: linear-gradient(45deg, var(--vampire-primary, #8B0000), #4a0080);
+    color: var(--vampire-text, #ffffffbe);
+    border: 1px solid var(--vampire-accent, #FF69B4);
+    box-shadow: 0 0 8px rgba(139, 0, 0, 0.4);
+}
+
+.vampire-mode .btn-import:hover {
+    background: linear-gradient(45deg, #4a0080, var(--vampire-accent, #FF69B4));
+    color: white;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.6);
 }

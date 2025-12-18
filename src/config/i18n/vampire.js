@@ -148,7 +148,8 @@ export default {
       "buttons": {
         "verify": "验证血印",
         "clear": "清除法阵",
-        "keyInfo": "查看血族密钥"
+        "keyInfo": "查看血族密钥",
+        "import": "导入血文"
       }
     },
     "github": {

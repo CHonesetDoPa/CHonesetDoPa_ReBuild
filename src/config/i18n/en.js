@@ -148,7 +148,8 @@ export default {
       "buttons": {
         "verify": "Verify Signature",
         "clear": "Clear",
-        "keyInfo": "View Public Key Info"
+        "keyInfo": "View Public Key Info",
+        "import": "Import File"
       }
     },
     "security": {
