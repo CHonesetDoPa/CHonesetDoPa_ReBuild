@@ -6,6 +6,7 @@
 // ----------------------
 import './style/index.css';
 import '@fortawesome/fontawesome-free/css/all.css';
+import './style/verify.css';
 // ----------------------
 // Import local JS modules
 // ----------------------
@@ -14,6 +15,7 @@ import './js/typed-init.js';
 import './js/cur-effect.js';
 import './js/dark-mode-manager.js';
 import './js/greeting-system.js';
+import './js/verify-challenge.js';
 // ----------------------
 // Load translation data before i18n system
 // ----------------------
@@ -61,3 +63,25 @@ import linksConfig from './config/links.js';
 if (window.linkManager) {
     window.linkManager.initializeAll(linksConfig);
 }
+
+// ----------------------
+// Global functions for verify page
+// ----------------------
+window.downloadPGPKey = function(type) {
+    const pgpKeyConfig = linksConfig.personal?.pgpKey;
+    if (!pgpKeyConfig) {
+        console.error('PGP key configuration not found');
+        return;
+    }
+
+    switch (type) {
+        case 'local':
+            window.location.href = pgpKeyConfig.local;
+            break;
+        case 'remote':
+            window.location.href = pgpKeyConfig.remote;
+            break;
+        default:
+            console.error('Invalid PGP key download type:', type);
+    }
+};

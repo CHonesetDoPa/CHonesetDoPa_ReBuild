@@ -7,44 +7,40 @@ import fs from 'fs';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '');
 
-    return {
-        root: '.',
+    const ASSET_PREFIX = `VampireC`;
 
+    return {
+        root: 'src',
+        publicDir: '../public',
         plugins: [
             viteCompression({
                 algorithm: 'gzip',
                 ext: '.gz',
-                threshold: 1024,   // 大于 1KB 才压缩（可选）
+                threshold: 1024,
                 deleteOriginFile: false
             }),
             viteCompression({
                 algorithm: 'brotliCompress',
                 ext: '.br',
-                threshold: 1024,   // 大于 1KB 才压缩（可选）
+                threshold: 1024,
                 deleteOriginFile: false
             }),
             {
                 name: 'vite-404-middleware',
                 configureServer(server) {
                     server.middlewares.use((req, res, next) => {
-                        // 排除 Vite 内部请求
-                        if (req.url.startsWith('/@vite')) return next();
+                        // 放行 Vite 内部资源
+                        if (
+                            req.url.startsWith('/@') ||
+                            req.url.startsWith('/src') ||
+                            req.url.startsWith('/node_modules') ||
+                            req.url.includes('.js') ||
+                            req.url.includes('.css')
+                        ) {
+                            return next();
+                        }
 
-                        // 去掉查询参数
-                        const urlPath = req.url.split('?')[0];
-
-                        // 拼接真实路径
-                        const filePath = path.join(process.cwd(), urlPath);
-
-                        // 检查文件是否存在
-                        fs.access(filePath, fs.constants.F_OK, (err) => {
-                            if (err) {
-                                res.statusCode = 404;
-                                res.end(); // 只返回 404 状态
-                            } else {
-                                next();
-                            }
-                        });
+                        next();
                     });
                 }
             }
@@ -62,7 +58,6 @@ export default defineConfig(({ mode }) => {
             open: true,
             strictPort: true,
         },
-
         resolve: {
             alias: {
                 '@': path.resolve(__dirname, './src'),
@@ -70,17 +65,23 @@ export default defineConfig(({ mode }) => {
         },
 
         build: {
-            outDir: 'dist',
+            outDir: path.resolve(__dirname, 'dist'),
             target: 'esnext',
             sourcemap: false,
             cssMinify: 'lightningcss',
+            emptyOutDir: true,
             rollupOptions: {
                 input: {
-                    main: path.resolve(__dirname, 'index.html'),
-                    sponsor: path.resolve(__dirname, 'sponsor.html'),
+                    main: path.resolve(__dirname, 'src/index.html'),
+                    sponsor: path.resolve(__dirname, 'src/sponsor.html'),
+                    verify: path.resolve(__dirname, 'src/verify.html'),
                 },
+                output: {
+                    entryFileNames: `assets/${ASSET_PREFIX}-[name]-[hash].js`,
+                    chunkFileNames: `assets/${ASSET_PREFIX}-[name]-[hash].js`,
+                    assetFileNames: `assets/${ASSET_PREFIX}-[name]-[hash].[ext]`,
+                }
             },
-            emptyOutDir: true,
         },
 
         define: {

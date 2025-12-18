@@ -210,7 +210,8 @@ export class UIRenderer {
             nekocServer: { zh: 'NekoC 游戏服务器列表', en: 'NekoC Game Server List' },
             chFileShare: { zh: 'CH GAS 公共文件共享', en: 'CH GAS Public File Share Service' },
             qtFileShare: { zh: 'QT GAS 公共文件共享', en: 'QT GAS Public File Share Service' },
-            sponsor: { zh: '赞助CC', en: 'Sponsor CC' }
+            sponsor: { zh: '赞助CC', en: 'Sponsor CC' },
+            messageVerify: { zh: '进行消息验证 / 下载CH的PGP公钥', en: 'Message Verification / Download CH\'s PGP Public Key' }
         };
 
         // 清空容器
@@ -232,32 +233,14 @@ export class UIRenderer {
                 // 添加无障碍属性
                 accessibilityManager.addAccessibilityAttributes(link, 'websites.links.' + siteKey);
                 
-                // 如果不是sponsor.html，在新标签页打开
-                if (url !== 'sponsor.html') {
+                // 如果不是sponsor.html和verify.html，在新标签页打开
+                if (url !== 'sponsor.html' && url !== 'verify.html') {
                     link.target = '_blank';
                 }
                 li.appendChild(link);
                 ul.appendChild(li);
             }
         });
-
-        // 添加 PGP 公钥下载（特殊处理）
-        if (config.personal?.pgpKey) {
-            const li = document.createElement('li');
-            const link = document.createElement('a');
-            link.href = 'javascript:void(0);';
-            link.onclick = () => window.pgp_id && window.pgp_id();
-            link.setAttribute('data-en', 'Download CH\'s PGP Public Key');
-            link.setAttribute('data-zh', '下载CH的PGP公钥');
-            link.textContent = '下载CH的PGP公钥';
-            link.style.cursor = 'pointer';
-            
-            // 添加无障碍属性
-            accessibilityManager.addAccessibilityAttributes(link, 'websites.links.pgpKey');
-            
-            li.appendChild(link);
-            ul.appendChild(li);
-        }
 
         // 将ul添加到容器中
         container.appendChild(ul);

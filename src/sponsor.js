@@ -14,9 +14,19 @@ import './js/typed-init.js';
 import './js/cur-effect.js';
 import './js/dark-mode-manager.js';
 import './js/greeting-system.js';
+import './js/sponsorlist.js'; // Specific to sponsor page
+// ----------------------
+// Load translation data before i18n system
+// ----------------------
+import Lang_ZH from './config/i18n/zh.js';
+import Lang_EN from './config/i18n/en.js';
+import Lang_Vampire from './config/i18n/vampire.js';
+window.i18n = { Lang_ZH, Lang_EN, Lang_Vampire };
+// ----------------------
+// Initialize i18n system after translation data is loaded
+// ----------------------
 import './js/i18n-system.js';
 import './js/link-manager.js';
-import './js/sponsorlist.js'; // Specific to sponsor page
 // ----------------------
 // Import npm libraries
 // ----------------------
@@ -45,7 +55,7 @@ import wechatQrUrl from './assets/img/app1.webp';
 // ----------------------
 // Configure and initialize libraries
 // ----------------------
-import linksConfig from './config/links.json';
+import linksConfig from './config/links.js';
 if (linksConfig.sponsor) {
     linksConfig.sponsor.wechatQR = wechatQrUrl;
 }
@@ -53,8 +63,3 @@ if (linksConfig.sponsor) {
 if (window.linkManager) {
     window.linkManager.initializeAll(linksConfig);
 }
-
-import Lang_ZH from './config/i18n/zh.json';
-import Lang_EN from './config/i18n/en.json';
-import Lang_Vampire from './config/i18n/vampire.json';
-window.i18n = { Lang_ZH, Lang_EN, Lang_Vampire };

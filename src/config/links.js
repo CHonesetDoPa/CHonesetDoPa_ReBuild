@@ -1,4 +1,4 @@
-{
+export default {
   "personal": {
     "email": "CH@nekoc.cc",
     "sessionId": "05173af7d9a4d731c22b5279fd10a46ef57782894e8b45991ace2bac686cb45876",
@@ -30,7 +30,8 @@
     "chFileShare": "https://file.nekoc.cc/CH6306",
     "qtFileShare": "https://file.nekoc.cc/QT%C3%98",
     "servicesStatus": "https://kuma.nekoc.cc/status/nya",
-    "sponsor": "sponsor.html"
+    "sponsor": "sponsor.html",
+    "messageVerify": "verify.html"
   },
   "status": {
     "siteRunning": {
@@ -44,6 +45,10 @@
   },
   "meta": {
     "copyright": "Copyright 2025 CH 每一天都是新的一天",
-    "typewriterStrings": ["每一天都是新的一天", "Everyday is a new day", "毎日が新しい日です"]
+    "typewriterStrings": [
+      "每一天都是新的一天",
+      "Everyday is a new day",
+      "毎日が新しい日です"
+    ]
   }
-}
+};

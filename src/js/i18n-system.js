@@ -10,8 +10,6 @@ const DEFAULT_I18N_CONFIG = {
     supportedLanguages: ['zh', 'en', 'vampire'],
     defaultLanguage: 'zh',
     fallbackLanguage: 'en',
-    translationsPath: './assets/i18n/',
-    fileExtension: '.json',
     storageKey: 'site-language-preference',
     autoDetect: {
         enabled: true,
@@ -29,18 +27,7 @@ const DEFAULT_I18N_CONFIG = {
         zh: '中文',
         en: 'English',
         vampire: '血族古语'
-    },
-    localeMapping: {
-        zh: 'zh-CN',
-        en: 'en-US',
-        vampire: 'zh-CN'
-    },
-    currencyMapping: {
-        zh: 'CNY',
-        en: 'USD',
-        vampire: 'CNY'
-    },
-    rtlLanguages: []
+    }
 };
 
 const DEFAULT_INLINE_TRANSLATION_MAPPING = {
@@ -49,12 +36,11 @@ const DEFAULT_INLINE_TRANSLATION_MAPPING = {
     vampire: 'Lang_Vampire'
 };
 
-let globalTranslationData = null;
-
 function getBundledTranslation(language, config = {}) {
-    const source = globalTranslationData || (typeof window !== 'undefined' ? window.i18n : null);
+    const source = (typeof window !== 'undefined' ? window.i18n : null);
 
     if (!source || typeof source !== 'object') {
+        console.warn('[I18n] No translation source found in window.i18n');
         return null;
     }
 
@@ -108,29 +94,20 @@ class I18n {
         this.translations = {};
         this.currentLanguage = this.config.defaultLanguage;
         this.cache = new Map();
-        this.loadPromises = new Map();
         this.events = new Map();
         this.stats = {
-            loadTimes: {},
-            lookupTimes: [],
             cacheHits: 0,
             cacheMisses: 0
         };
     }
 
     async init() {
-        const startTime = performance.now();
-        
         try {
             await this.detectLanguage();
             await this.loadLanguage(this.currentLanguage);
             
-            const initTime = performance.now() - startTime;
-            this.stats.initTime = initTime;
-            
             this.emit('initialized', {
-                language: this.currentLanguage,
-                initTime: initTime
+                language: this.currentLanguage
             });
             
             return true;
@@ -198,50 +175,19 @@ class I18n {
             return this.translations[language];
         }
         
-        if (this.loadPromises.has(language)) {
-            return this.loadPromises.get(language);
-        }
-
         const inlineTranslations = getBundledTranslation(language, this.config);
         if (inlineTranslations) {
             this.translations[language] = inlineTranslations;
-            const loadTime = 0;
-            this.stats.loadTimes[language] = loadTime;
-            this.emit('languageLoaded', { language, loadTime, source: 'bundle' });
+            this.emit('languageLoaded', { language, source: 'bundle' });
             return inlineTranslations;
         }
         
-        const startTime = performance.now();
-        const loadPromise = this.fetchTranslations(language);
-        this.loadPromises.set(language, loadPromise);
-        
-        try {
-            const translations = await loadPromise;
-            this.translations[language] = translations;
-            
-            const loadTime = performance.now() - startTime;
-            this.stats.loadTimes[language] = loadTime;
-            
-            this.emit('languageLoaded', { language, loadTime });
-            
-            return translations;
-        } catch (error) {
-            console.error(`[I18n] Failed to load language ${language}:`, error);
-            this.emit('error', { type: 'load', language, error });
-            throw error;
-        } finally {
-            this.loadPromises.delete(language);
-        }
+        console.error(`[I18n] No translations found for language: ${language}`);
+        this.emit('error', { type: 'load', language, error: new Error('No translations found') });
+        throw new Error(`No translations available for language: ${language}`);
     }
 
-    async fetchTranslations(language) {
-        const url = `${this.config.translationsPath}${language}${this.config.fileExtension}`;
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-        return await response.json();
-    }
+
 
     t(key, options = {}) {
         try {
@@ -325,15 +271,7 @@ class I18n {
         
         return template.replace(/\{\{(\w+)\}\}/g, (match, key) => {
             if (key in variables) {
-                const value = variables[key];
-                
-                if (value instanceof Date) {
-                    return this.formatDate(value);
-                } else if (typeof value === 'number') {
-                    return this.formatNumber(value);
-                }
-                
-                return value;
+                return variables[key];
             }
             
             return match;
@@ -434,44 +372,11 @@ class I18n {
         window.history.replaceState({}, '', url);
     }
 
-    formatNumber(number, options = {}) {
-        try {
-            const locale = this.config.localeMapping[this.currentLanguage] || this.currentLanguage;
-            const formatter = new Intl.NumberFormat(locale, options);
-            return formatter.format(number);
-        } catch (error) {
-            console.warn('[I18n] Number formatting failed:', error);
-            return number.toString();
-        }
-    }
 
-    formatDate(date, options = {}) {
-        try {
-            const locale = this.config.localeMapping[this.currentLanguage] || this.currentLanguage;
-            const formatter = new Intl.DateTimeFormat(locale, options);
-            return formatter.format(date);
-        } catch (error) {
-            console.warn('[I18n] Date formatting failed:', error);
-            return date.toString();
-        }
-    }
 
-    formatCurrency(amount, currency = null) {
-        try {
-            const locale = this.config.localeMapping[this.currentLanguage] || this.currentLanguage;
-            const currencyCode = currency || this.config.currencyMapping[this.currentLanguage] || 'USD';
-            
-            const formatter = new Intl.NumberFormat(locale, {
-                style: 'currency',
-                currency: currencyCode
-            });
-            
-            return formatter.format(amount);
-        } catch (error) {
-            console.warn('[I18n] Currency formatting failed:', error);
-            return amount.toString();
-        }
-    }
+
+
+
 
     on(event, callback) {
         if (!this.events.has(event)) {
@@ -525,7 +430,6 @@ class I18n {
     destroy() {
         this.clearCache();
         this.events.clear();
-        this.loadPromises.clear();
     }
 }
 
@@ -540,8 +444,7 @@ class AdvancedLanguageController {
         
         this.currentLanguage = this.defaultLanguage;
         this.translations = {};
-        this.cache = new Map();
-        this.formatters = null;
+        this.cache = new Map();;
         
         // 吸血鬼萝莉模式相关
         this.clickCount = 0;
@@ -564,7 +467,6 @@ class AdvancedLanguageController {
             
             this.updateLanguageButton();
             this.updateDocumentLanguage();
-            this.initFormatters();
             
             this.isInitialized = true;
             this.isLoading = false;
@@ -632,6 +534,9 @@ class AdvancedLanguageController {
             return this.translations[language];
         }
 
+        console.log(`[I18n] Loading translations for language: ${language}`);
+        console.log('[I18n] Checking window.i18n:', typeof window.i18n, Object.keys(window.i18n || {}));
+        
         const inlineTranslations = getBundledTranslation(language, this.config);
         if (inlineTranslations) {
             this.translations[language] = inlineTranslations;
@@ -639,28 +544,14 @@ class AdvancedLanguageController {
             return inlineTranslations;
         }
 
-        try {
-            const response = await fetch(`${this.config.translationsPath}${language}${this.config.fileExtension}`);
-            
-            if (!response.ok) {
-                throw new Error(`Failed to load translation file for ${language}: ${response.status}`);
-            }
-            
-            const translations = await response.json();
-            this.translations[language] = translations;
-            
-            console.log(`[I18n] Loaded translations for ${language}`);
-            return translations;
-        } catch (error) {
-            console.error(`[I18n] Failed to load translations for ${language}:`, error);
-            
-            if (language !== this.fallbackLanguage && this.supportedLanguages.includes(this.fallbackLanguage)) {
-                console.log(`[I18n] Attempting to load fallback language: ${this.fallbackLanguage}`);
-                return await this.loadTranslations(this.fallbackLanguage);
-            }
-            
-            throw error;
+        console.error(`[I18n] No translations found for language: ${language}`);
+        
+        if (language !== this.fallbackLanguage && this.supportedLanguages.includes(this.fallbackLanguage)) {
+            console.log(`[I18n] Attempting to load fallback language: ${this.fallbackLanguage}`);
+            return await this.loadTranslations(this.fallbackLanguage);
         }
+        
+        throw new Error(`No translations available for language: ${language}`);
     }
 
     t(key, options = {}) {
@@ -747,17 +638,7 @@ class AdvancedLanguageController {
         
         return template.replace(/\{\{(\w+)\}\}/g, (match, key) => {
             if (key in variables) {
-                const value = variables[key];
-                
-                if (value instanceof Date) {
-                    return this.formatters ? this.formatters.date.format(value) : value.toString();
-                }
-                
-                if (typeof value === 'number') {
-                    return this.formatters ? this.formatters.number.format(value) : value.toString();
-                }
-                
-                return value;
+                return variables[key];
             }
             
             return match;
@@ -772,7 +653,6 @@ class AdvancedLanguageController {
         
         // 增加点击计数
         this.clickCount++;
-        console.log(`[I18n] Language switch clicked ${this.clickCount} times`);
         
         // 检查是否达到吸血鬼萝莉模式激活阈值
         if (this.clickCount === this.vampireActivationThreshold) {
@@ -836,7 +716,6 @@ class AdvancedLanguageController {
             this.saveLanguagePreference(language);
             this.updateLanguageButton();
             this.updateDocumentLanguage();
-            this.initFormatters();
             this.cache.clear();
 
             this.isLoading = false;
@@ -846,7 +725,7 @@ class AdvancedLanguageController {
                 previousLanguage: previousLanguage
             });
 
-            console.log(`[I18n] Language switched from ${previousLanguage} to ${language}`);
+            console.log(`[I18n] Language switched from ${previousLanguage} to ${language} (Count: ${this.clickCount})`);
             return true;
         } catch (error) {
             console.error(`[I18n] Failed to switch to language ${language}:`, error);
@@ -863,7 +742,7 @@ class AdvancedLanguageController {
     }
 
     async activateVampireMode() {
-        console.log('[I18n] 🦇 Activating Vampire Loli Mode! 🦇');
+        console.log('[I18n] Activating Vampire Loli Mode!');
         
         try {
             // 显示血族萝莉风格的特殊提示
@@ -884,12 +763,12 @@ class AdvancedLanguageController {
         return new Promise((resolve) => {
             if (typeof swal !== 'undefined') {
                 swal({
-                    title: "🦇 血族觉醒！",
+                    title: "血族觉醒！",
                     text: "",
                     icon: "success",
                     buttons: {
                         confirm: {
-                            text: "哼！本大人知道了～",
+                            text: "知道啦～",
                             value: true,
                             visible: true,
                             className: "vampire-button",
@@ -903,13 +782,13 @@ class AdvancedLanguageController {
                                 <div style="text-align: center; color: #8B0000; font-family: '微软雅黑', sans-serif; animation: vampireGlow 2s ease-in-out infinite alternate;">
                                     <div style="font-size: 3em; margin-bottom: 15px; animation: float 3s ease-in-out infinite;">🦇✨🌙</div>
                                     <h3 style="color: #8B0000; font-weight: bold; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
-                                        血族觉醒！吸血鬼萝莉彩蛋激活！
+                                        血族觉醒！
                                     </h3>
                                     <p style="color: #8B0000; font-size: 1.1em; line-height: 1.6; margin-bottom: 10px;">
                                         呵呵呵～你终于发现了隐藏的血族秘密！
                                     </p>
                                     <p style="color: #CC0000; font-weight: bold; font-size: 1.1em; margin-bottom: 10px;">
-                                        现在暂时切换到<span style="color: #8B0000; text-shadow: 1px 1px 2px rgba(255,105,180,0.5);">🦇血族古语🦇</span>模式！
+                                        现在暂时切换到<span style="color: #8B0000; text-shadow: 1px 1px 2px rgba(255,105,180,0.5);">血族古语</span>模式！
                                     </p>
                                     <p style="color: #8B0000; font-size: 1em; margin-bottom: 15px;">
                                         继续点击20次可以再次激活血族彩蛋哦～
@@ -938,7 +817,7 @@ class AdvancedLanguageController {
                 });
             } else {
                 // 如果 sweetalert 不可用，使用原生 alert
-                alert("🦇 血族觉醒！\n呵呵呵～你终于发现了隐藏的血族秘密！\n现在你可以使用吾之血族古语了！\n欢迎来到暗夜宫殿，吾的信徒～");
+                alert("\n呵呵呵～你终于发现了隐藏的血族秘密！\n现在你可以使用吾之血族古语了！\n欢迎来到暗夜宫殿，吾的信徒～");
                 resolve();
             }
         });
@@ -959,7 +838,7 @@ class AdvancedLanguageController {
             body.classList.add('vampire-mode');
         }
         
-        console.log('[I18n] 🦇 Vampire visual effects activated!');
+        console.log('[I18n] Vampire visual effects activated!');
     }
 
     removeVampireEffects() {
@@ -979,7 +858,7 @@ class AdvancedLanguageController {
             body.classList.remove('vampire-mode');
         }
         
-        console.log('[I18n] 🦇 Vampire visual effects removed!');
+        console.log('[I18n] Vampire visual effects removed!');
     }
 
     async applyLanguage(language) {
@@ -996,19 +875,7 @@ class AdvancedLanguageController {
                 }
             });
 
-            // 兼容旧的 data-en/data-zh 属性方式
-            const legacyElements = document.querySelectorAll('[data-en], [data-zh]');
-            const attributeName = `data-${language}`;
-            
-            legacyElements.forEach(element => {
-                const text = element.getAttribute(attributeName);
-                if (text) {
-                    if (!element.hasAttribute('data-original')) {
-                        element.setAttribute('data-original', element.textContent.trim());
-                    }
-                    element.textContent = text;
-                }
-            });
+
 
             // 处理 placeholder 和 title 属性
             const placeholderElements = document.querySelectorAll('[data-i18n-placeholder]');
@@ -1083,80 +950,16 @@ class AdvancedLanguageController {
         // 将vampire语言映射为zh-CN，因为它使用中文语法
         const documentLanguage = this.currentLanguage === 'vampire' ? 'zh-CN' : this.currentLanguage;
         document.documentElement.lang = documentLanguage;
-        document.documentElement.setAttribute('dir', this.getTextDirection(this.currentLanguage));
+        document.documentElement.setAttribute('dir', 'ltr'); // 移除rtl语言检测
     }
 
-    getTextDirection(language) {
-        const rtlLanguages = ['ar', 'he', 'fa', 'ur'];
-        return rtlLanguages.includes(language) ? 'rtl' : 'ltr';
-    }
 
-    initFormatters() {
-        try {
-            const locale = this.getLocaleCode(this.currentLanguage);
-            
-            this.formatters = {
-                currency: new Intl.NumberFormat(locale, { 
-                    style: 'currency', 
-                    currency: this.getCurrencyCode(this.currentLanguage) 
-                }),
-                number: new Intl.NumberFormat(locale),
-                date: new Intl.DateTimeFormat(locale),
-                time: new Intl.DateTimeFormat(locale, { 
-                    hour: '2-digit', 
-                    minute: '2-digit' 
-                }),
-                datetime: new Intl.DateTimeFormat(locale, {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                }),
-                relative: new Intl.RelativeTimeFormat(locale, { numeric: 'auto' })
-            };
-        } catch (error) {
-            console.warn('[I18n] Failed to initialize formatters, using fallback:', error);
-            
-            const fallbackLocale = 'en-US';
-            this.formatters = {
-                currency: new Intl.NumberFormat(fallbackLocale, { 
-                    style: 'currency', 
-                    currency: 'USD' 
-                }),
-                number: new Intl.NumberFormat(fallbackLocale),
-                date: new Intl.DateTimeFormat(fallbackLocale),
-                time: new Intl.DateTimeFormat(fallbackLocale, { 
-                    hour: '2-digit', 
-                    minute: '2-digit' 
-                }),
-                datetime: new Intl.DateTimeFormat(fallbackLocale, {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                }),
-                relative: new Intl.RelativeTimeFormat(fallbackLocale, { numeric: 'auto' })
-            };
-        }
-    }
 
-    getLocaleCode(language) {
-        if (!language || typeof language !== 'string') {
-            language = this.defaultLanguage;
-        }
-        
-        return this.config.localeMapping[language] || this.config.localeMapping[this.defaultLanguage] || 'en-US';
-    }
 
-    getCurrencyCode(language) {
-        if (!language || typeof language !== 'string') {
-            language = this.defaultLanguage;
-        }
-        
-        return this.config.currencyMapping[language] || this.config.currencyMapping[this.defaultLanguage] || 'USD';
-    }
+
+
+
+
 
     saveLanguagePreference(language) {
         try {
@@ -1220,54 +1023,11 @@ class AdvancedLanguageController {
         document.dispatchEvent(event);
     }
 
-    formatNumber(number, options = {}) {
-        try {
-            if (!this.formatters) {
-                this.initFormatters();
-            }
-            return this.formatters.number.format(number);
-        } catch (error) {
-            console.warn('[I18n] Number formatting failed:', error);
-            return number.toString();
-        }
-    }
 
-    formatCurrency(amount, currency = null) {
-        try {
-            if (!this.formatters) {
-                this.initFormatters();
-            }
-            
-            if (currency) {
-                const formatter = new Intl.NumberFormat(this.getLocaleCode(this.currentLanguage), {
-                    style: 'currency',
-                    currency: currency
-                });
-                return formatter.format(amount);
-            }
-            return this.formatters.currency.format(amount);
-        } catch (error) {
-            console.warn('[I18n] Currency formatting failed:', error);
-            return amount.toString();
-        }
-    }
 
-    formatDate(date, options = {}) {
-        try {
-            if (!this.formatters) {
-                this.initFormatters();
-            }
-            
-            if (options.style) {
-                const formatter = new Intl.DateTimeFormat(this.getLocaleCode(this.currentLanguage), options);
-                return formatter.format(date);
-            }
-            return this.formatters.date.format(date);
-        } catch (error) {
-            console.warn('[I18n] Date formatting failed:', error);
-            return date.toString();
-        }
-    }
+
+
+
 
     async fallbackToDefault() {
         console.warn(`[I18n] Falling back to default language: ${this.defaultLanguage}`);
@@ -1371,11 +1131,26 @@ async function initializeI18nSystem() {
     initPromise = (async () => {
         try {
             console.log('[I18n Init] Starting i18n system initialization...');
-
-            // 备份可能存在的翻译数据
-            if (typeof window !== 'undefined' && window.i18n && typeof window.i18n === 'object' && !window.i18n.init) {
-                globalTranslationData = window.i18n;
+            
+            // 检查翻译数据是否可用
+            if (!window.i18n || typeof window.i18n !== 'object') {
+                console.error('[I18n Init] No translation data found in window.i18n. Please ensure translation files are loaded before initializing i18n system.');
+                createFallbackController();
+                setupGlobalFunctions();
+                return false;
             }
+            
+            // 检查是否包含预期的翻译数据结构
+            const hasValidTranslations = window.i18n.Lang_ZH || window.i18n.Lang_EN || window.i18n.Lang_Vampire;
+            if (!hasValidTranslations) {
+                console.error('[I18n Init] No valid translation data structure found in window.i18n. Expected Lang_ZH, Lang_EN, or Lang_Vampire properties.');
+                console.log('[I18n Init] Found keys:', Object.keys(window.i18n));
+                createFallbackController();
+                setupGlobalFunctions();
+                return false;
+            }
+            
+            console.log('[I18n Init] Translation data available:', Object.keys(window.i18n));
 
             // 创建 i18n 实例
             i18nInstance = new I18n(window.I18nConfig);
@@ -1423,9 +1198,12 @@ async function initializeI18nSystem() {
 }
 
 function createFallbackController() {
+    console.log('[I18n] Creating fallback controller due to initialization failure');
+    
     languageController = {
         currentLanguage: 'zh',
         supportedLanguages: ['zh', 'en'],
+        isInitialized: false,
         
         getCurrentLanguage() {
             return this.currentLanguage;
@@ -1435,7 +1213,8 @@ function createFallbackController() {
             if (this.supportedLanguages.includes(lang)) {
                 this.currentLanguage = lang;
                 localStorage.setItem('site-language-preference', lang);
-                location.reload();
+                console.warn('[I18n] Fallback mode: Language preference saved, but translations unavailable. Page reload recommended.');
+                // location.reload();
             }
         },
         
@@ -1446,16 +1225,20 @@ function createFallbackController() {
         },
         
         t(key, options = {}) {
+            console.warn(`[I18n] Fallback mode: Translation key "${key}" requested but no translations loaded`);
             return key;
         },
         
         isReady() {
-            return true;
+            return true; // Always ready in fallback mode
         }
     };
 }
 
 function setupGlobalFunctions() {
+    // 保存原始翻译数据
+    const originalTranslationData = (typeof window !== 'undefined' && window.i18n) ? window.i18n : null;
+    
     // 全局翻译函数
     window.t = function(key, options = {}) {
         if (i18nInstance) {
@@ -1488,41 +1271,19 @@ function setupGlobalFunctions() {
         return 'zh';
     };
 
-    // 格式化函数
-    window.formatNumber = function(number, options = {}) {
-        if (i18nInstance) {
-            return i18nInstance.formatNumber(number, options);
-        } else if (languageController && languageController.formatNumber) {
-            return languageController.formatNumber(number, options);
-        }
-        return number.toString();
-    };
-
-    window.formatDate = function(date, options = {}) {
-        if (i18nInstance) {
-            return i18nInstance.formatDate(date, options);
-        } else if (languageController && languageController.formatDate) {
-            return languageController.formatDate(date, options);
-        }
-        return date.toString();
-    };
-
-    window.formatCurrency = function(amount, currency = null) {
-        if (i18nInstance) {
-            return i18nInstance.formatCurrency(amount, currency);
-        } else if (languageController && languageController.formatCurrency) {
-            return languageController.formatCurrency(amount, currency);
-        }
-        return amount.toString();
-    };
-
-    // 暴露实例
+    // 暴露实例，但保持原始翻译数据
     window.i18nInstance = i18nInstance;
-    // 只有当 window.i18n 未定义，或者它不是包含翻译数据的对象时，才覆盖它
-    if (!window.i18n || (typeof window.i18n === 'object' && !window.i18n.Lang_ZH && !window.i18n.Lang_EN)) {
-        window.i18n = i18nInstance;
-    }
     window.languageController = languageController;
+    
+    // 如果原始翻译数据存在，恢复它；否则使用 i18nInstance
+    if (originalTranslationData && 
+        (originalTranslationData.Lang_ZH || originalTranslationData.Lang_EN || originalTranslationData.Lang_Vampire)) {
+        window.i18n = originalTranslationData;
+        console.log('[I18n] Preserved original translation data in window.i18n');
+    } else {
+        window.i18n = i18nInstance;
+        console.log('[I18n] Set window.i18n to i18nInstance (no translation data found)');
+    }
 }
 
 function setupAutoTranslation() {
@@ -1640,14 +1401,63 @@ function setupEventListeners() {
 }
 
 // 初始化入口
+function waitForTranslationData(maxWaitTime = 5000) {
+    return new Promise((resolve, reject) => {
+        const startTime = Date.now();
+        
+        function checkTranslationData() {
+            if (window.i18n && 
+                typeof window.i18n === 'object' && 
+                (window.i18n.Lang_ZH || window.i18n.Lang_EN || window.i18n.Lang_Vampire)) {
+                console.log('[I18n] Translation data detected:', Object.keys(window.i18n));
+                resolve(true);
+                return;
+            }
+            
+            if (Date.now() - startTime > maxWaitTime) {
+                console.warn('[I18n] Translation data wait timeout, proceeding with fallback');
+                resolve(false);
+                return;
+            }
+            
+            // 继续等待
+            setTimeout(checkTranslationData, 50);
+        }
+        
+        checkTranslationData();
+    });
+}
+
+async function safeInitializeI18nSystem() {
+    try {
+        // 等待翻译数据可用
+        const hasTranslationData = await waitForTranslationData();
+        
+        if (hasTranslationData) {
+            return await initializeI18nSystem();
+        } else {
+            console.warn('[I18n] Proceeding without translation data, using fallback mode');
+            createFallbackController();
+            setupGlobalFunctions();
+            return false;
+        }
+    } catch (error) {
+        console.error('[I18n] Failed to initialize i18n system safely:', error);
+        createFallbackController();
+        setupGlobalFunctions();
+        return false;
+    }
+}
+
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeI18nSystem);
+    document.addEventListener('DOMContentLoaded', safeInitializeI18nSystem);
 } else {
-    initializeI18nSystem();
+    safeInitializeI18nSystem();
 }
 
 // 暴露初始化函数以供手动调用
 window.initI18nSystem = initializeI18nSystem;
+window.safeInitI18nSystem = safeInitializeI18nSystem;
 
 // 导出（用于模块化环境）
 if (typeof module !== 'undefined' && module.exports) {

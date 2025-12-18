@@ -2,6 +2,18 @@
     box-sizing: border-box;
 }
 
+/* Global button improvements */
+button, .btn, input[type="button"], input[type="submit"], .dark-button {
+    text-align: center !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    vertical-align: middle;
+    white-space: nowrap;
+    user-select: none;
+    font-family: inherit;
+}
+
 html {
     height: 100%;
 }
@@ -536,22 +548,30 @@ aside_content .card-info .author-info__description {
 }
 
 .dark-button {
-    display: inline-block;
-    border-radius: 4px;
-    background-color: #0000008a;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    background: linear-gradient(135deg, #d1c4e9 0%, #e8eaf6 100%);
     border: none;
-    color: #FFFFFF;
+    color: #5e35b1;
     text-align: center;
-    padding: 3px;
-    width: 80px;
-    transition: all 0.5s;
+    padding: 4px 8px;
+    min-width: 40px;
+    min-height: 18px;
+    font-weight: 500;
+    font-size: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
-    margin: 5px;
+    margin: 2.5px;
+    box-shadow: 0 1px 2px rgba(129, 95, 190, 0.15);
 }
 
 .dark-button:hover {
-    background-color: #000000be;
-    color: #fff;
+    background: linear-gradient(135deg, #b39ddb 0%, #d1c4e9 100%);
+    color: #4527a0;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(129, 95, 190, 0.25);
 }
 
 .dark-mode {
@@ -610,17 +630,53 @@ aside_content .card-info .author-info__description {
     color: #00ff6a !important;
 }
 
+/* Dark mode sponsor button styles */
+.dark-mode .spon {
+    background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(255, 107, 157, 0.3);
+}
+
+.dark-mode .spon:hover {
+    background: linear-gradient(135deg, #ff8fab 0%, #d63384 100%);
+    box-shadow: 0 4px 16px rgba(255, 107, 157, 0.4);
+}
+
+/* Dark mode dark-button styles */
+.dark-mode .dark-button {
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(108, 92, 231, 0.3);
+}
+
+.dark-mode .dark-button:hover {
+    background: linear-gradient(135deg, #5f3dc4 0%, #6c5ce7 100%);
+    box-shadow: 0 4px 12px rgba(108, 92, 231, 0.4);
+}
+
 .spon {
-    background-color: #7cd1f9;
-    color: #fff;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+    color: #5a3472;
     border: none;
-    box-shadow: none;
-    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(255, 154, 158, 0.2);
+    border-radius: 3px;
     font-weight: 600;
     font-size: 14px;
-    padding: 10px 24px;
+    padding: 12px 24px;
     margin: 0;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 44px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.spon:hover {
+    background: linear-gradient(135deg, #ff8a95 0%, #fdb5e8 50%, #fdb5e8 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 154, 158, 0.4);
 }
 
 /* ========== 血族萝莉模式样式 ========== */
