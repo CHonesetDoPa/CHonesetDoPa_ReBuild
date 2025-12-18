@@ -1,0 +1,257 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK",
+    "close": "Close",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "export": "Export",
+    "import": "Import",
+    "settings": "Settings",
+    "help": "Help",
+    "about": "About",
+    "home": "Home",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "first": "First",
+    "last": "Last",
+    "switchLanguage": "Switch Language",
+    "chinese": "中文",
+    "english": "English"
+  },
+  "site": {
+    "title": "CH's HomePage",
+    "welcome": "Welcome",
+    "notice": "Notice",
+    "socialMedia": "Social Media",
+    "siteInfo": "Site Info",
+    "runningStatus": "Running Status:",
+    "myStatus": "My Status:",
+    "servicesStatus": "Services Status:",
+    "normal": "🟢 Normal",
+    "alive": "🟢 Still Alive",
+    "view": "🟢 View",
+    "description": "Everyday is a new day",
+    "kawaii": "Sekai ichi kawaii!"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "websites": "Related Sites",
+    "sponsor": "Sponsor",
+    "contact": "Contact"
+  },
+  "about": {
+    "title": "About CH",
+    "greeting": "Hello! This is CH! Currently still a vampire loli enchantress in school!",
+    "disclaimer": "Because our ideas are a bit peculiar, so if you see any silly repositories, it's not us! It's all the next door QT!",
+    "hobby": "There are many things I like, but currently the favorite is sleeping.",
+    "affiliation": "Currently affiliated with GAS / GirlsAndScary",
+    "business": "For business cooperation, please email (but can we really get any business orders? qaq).",
+    "currentStatus": "Today, study."
+  },
+  "skills": {
+    "title": "My Skills",
+    "html": "HTML",
+    "css": "CSS",
+    "php": "PHP",
+    "python": "Python",
+    "cpp": "C++",
+    "java": "Java",
+    "cute": "Cute"
+  },
+  "websites": {
+    "title": "Websites About Me",
+    "neighborQt": "The Next Door QT",
+    "gameServerList": "NekoC Game Server List",
+    "chFileShare": "CH GAS Public File Share Service",
+    "qtFileShare": "QT GAS Public File Share Service",
+    "sponsor": "Sponsor CC",
+    "pgpKey": "Download CH's PGP Public Key",
+    "links": {
+      "neighborQt": "Visit The Next Door QT's homepage",
+      "gameServerList": "View NekoC Game Server List",
+      "chFileShare": "Visit CH GAS Public File Share Service",
+      "qtFileShare": "Visit QT GAS Public File Share Service",
+      "sponsor": "Go to sponsor page",
+      "pgpKey": "Download CH's PGP public key file",
+      "servicesStatus": "View services status",
+      "qtnull": "Visit QT's GitHub homepage",
+      "nekocServer": "View NekoC server list"
+    }
+  },
+  "sponsor": {
+    "title": "Sponsor List",
+    "sponsorColumn": "Sponsor",
+    "amountColumn": "Amount",
+    "chooseMethod": "Choose donation method",
+    "wechatPay": "Sponsor via WechatPay",
+    "patreon": "Sponsor via Patreon",
+    "afdian": "Sponsor via Afdian",
+    "openCollective": "Sponsor via OpenCollective",
+    "reallyTreat": "Really want to treat CC to milk tea?",
+    "goodPerson": "You are really a good person!",
+    "noThanks": "No, thanks",
+    "buttonTitles": {
+      "wechatPay": "Click to sponsor via WeChat Pay QR code",
+      "patreon": "Click to sponsor via Patreon platform",
+      "afdian": "Click to sponsor via Afdian platform",
+      "openCollective": "Click to sponsor via OpenCollective platform"
+    }
+  },
+  "messages": {
+    "copyCompleted": "Completed!",
+    "copyFailed": "Copy failed!",
+    "chooseDownloadLink": "Choose a download link",
+    "viaOpenPGP": "Via OpenPGP.org",
+    "viaNekoCloud": "Via NekoCloud",
+    "emailTitle": "E-mail",
+    "sessionIdTitle": "Session ID",
+    "copy": "Copy"
+  },
+  "greetings": {
+    "morning": "Good morning!",
+    "goodMorning": "Good morning",
+    "evening": "Good evening!",
+    "nightModeHint": "Turning on night mode can make the page less glaring~",
+    "nightMode": "Night Mode",
+    "lateNight": "It's late at night!",
+    "restWell": "Take a good rest~"
+  },
+  "browser": {
+    "titleFocus": "(ฅ>ω<*ฅ) Hey hey, you are back!",
+    "titleBlur": "╭(°A°`)╮ Where are you going?",
+    "ieWarning": "We recommend using Chrome/Firefox browser~"
+  },
+  "console": {
+    "dailyMessage": "Everyday is a new day"
+  },
+  "socialMedia": {
+    "bilibili": "Bilibili",
+    "github": "GitHub",
+    "email": "Email", 
+    "twitter": "Twitter",
+    "youtube": "Youtube Channel",
+    "telegram": "Telegram",
+    "steam": "Steam",
+    "discord": "Discord Channel",
+    "twitch": "Twitch",
+    "osu": "OSU!",
+    "session": "Session",
+    "links": {
+      "bilibili": "Visit my Bilibili homepage",
+      "github": "Visit my GitHub homepage",
+      "email": "Click to view email address",
+      "twitter": "Visit my Twitter homepage",
+      "youtube": "Visit my Youtube channel",
+      "telegram": "Visit my Telegram channel",
+      "steam": "Visit my Steam homepage",
+      "discord": "Visit my Discord channel",
+      "twitch": "Visit my Twitch channel",
+      "osu": "Visit my OSU! homepage",
+      "session": "View Session ID"
+    }
+  },
+  "language": {
+    "current": "Current Language",
+    "switch": "Switch Language",
+    "chinese": "中文",
+    "english": "English",
+    "zh": "Chinese",
+    "en": "English"
+  },
+  "theme": {
+    "dark": "Dark Mode",
+    "light": "Light Mode",
+    "toggle": "Toggle Theme",
+    "buttonTitle": "Toggle dark/light mode"
+  },
+  "time": {
+    "formats": {
+      "short": "Short",
+      "medium": "Medium",
+      "long": "Long", 
+      "full": "Full"
+    }
+  },
+  "errors": {
+    "networkError": "Network Error",
+    "loadFailed": "Failed to Load",
+    "resourceNotFound": "Resource Not Found",
+    "permissionDenied": "Permission Denied",
+    "unknown": "Unknown Error"
+  },
+  "examples": {
+    "title": "i18n Usage Examples",
+    "description": "This page demonstrates various features and usage of the i18n system",
+    "basic": {
+      "title": "Basic Translation",
+      "welcome": "Welcome",
+      "message": "This is a simple translation example",
+      "status": "Status",
+      "online": "Online",
+      "time": "Time"
+    },
+    "interpolation": {
+      "title": "Variable Interpolation",
+      "userProfile": "User Profile",
+      "greeting": "Hello, {{name}}!",
+      "userStats": "You have {{posts}} posts and {{followers}} followers",
+      "joinDate": "Join Date: {{date}}"
+    },
+    "pluralization": {
+      "title": "Pluralization",
+      "shoppingCart": "Shopping Cart",
+      "cartItems": {
+        "zero": "Cart is empty",
+        "one": "Cart has 1 item",
+        "other": "Cart has {{count}} items"
+      },
+      "refresh": "Refresh Example"
+    },
+    "formatting": {
+      "title": "Formatting Features",
+      "price": "Price",
+      "visitors": "Visitors",
+      "date": "Date",
+      "lastUpdate": "Last Update"
+    },
+    "dynamic": {
+      "title": "Dynamic Content",
+      "description": "The following content will be automatically updated when language changes:",
+      "addNotification": "Add Notification",
+      "clearAll": "Clear All",
+      "notificationMessage": "Notification #{{count}} - {{time}}",
+      "errorMessage": "Error #{{count}} - {{time}}",
+      "warningMessage": "Warning #{{count}} - {{time}}"
+    },
+    "namespace": {
+      "title": "Namespaces"
+    },
+    "api": {
+      "title": "JavaScript API",
+      "runExample": "Run Example"
+    },
+    "performance": {
+      "title": "Performance Statistics",
+      "refresh": "Refresh Stats",
+      "totalKeys": "Total Keys",
+      "languages": "Languages",
+      "namespaces": "Namespaces",
+      "currentLanguage": "Current Language"
+    }
+  }
+}

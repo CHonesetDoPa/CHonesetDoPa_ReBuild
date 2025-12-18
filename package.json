@@ -1,0 +1,23 @@
+{
+  "name": "chonesetdopa-rebuild",
+  "private": true,
+  "version": "1.0.0",
+  "license": "CC0-1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "lightningcss": "^1.30.2",
+    "vite": "^7.1.7",
+    "vite-plugin-compression": "^0.5.1"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.1.0",
+    "instant.page": "^5.2.0",
+    "sweetalert": "^2.1.2",
+    "typed.js": "^2.1.0"
+  }
+}

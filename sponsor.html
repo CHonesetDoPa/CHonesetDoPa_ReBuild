@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="CH's HomePage - Sponsor">
+    <meta name="keywords" content="CH, CHonesetDoPa, Sponsor, Donation">
+    <meta name="author" content="CH">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <!-- Icon -->
+    <link rel="icon" href="/favicon.ico">
+
+    <title data-i18n="site.title">CH's HomePage</title>
+
+</head>
+
+<body>
+    
+    <div id="body-wrap">
+        <!-- Hero Section -->
+        <header class="hero-section not_index_bg" id="nav" role="banner">
+            <div id="page_site-info">
+                <section id="site-title" role="heading" aria-level="1">
+                    <span class="blogtitle" aria-live="polite"></span>
+                </section>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main id="content-outer" role="main">
+            <div class="layout_page" id="content-inner">
+                <!-- Sidebar -->
+                <aside class="aside_content" id="aside_content" role="complementary" aria-label="侧边栏信息">
+                    <!-- Profile Card -->
+                    <section class="card-widget card-info" aria-labelledby="profile-heading">
+                        <h2 id="profile-heading" class="sr-only">个人资料</h2>
+                        <div class="card-content">
+                            <div class="card-info-avatar is-center">
+                                <img class="avatar-img" 
+                                     id="avatar"
+                                     alt="CH的头像" 
+                                     width="120" 
+                                     height="120"
+                                     loading="eager">
+                                <div class="author-info__name">
+                                    <span><strong>CH</strong></span>
+                                </div>
+                                <div class="author-info__description" data-i18n="site.kawaii">
+                                    世界第一可爱！
+                                </div>
+                            </div>
+                            <nav class="card-info-social-icons is-center" aria-label="社交媒体和功能">
+                                <div id="social-media-icons-placeholder" aria-label="社交媒体链接"></div>
+                                <br>
+
+                                <div class="control-buttons" role="group" aria-label="页面控制">
+                                    <button type="button"
+                                            class="dark-button" 
+                                            onclick="dark()" 
+                                            style="vertical-align:middle" 
+                                            data-i18n-title="theme.buttonTitle"
+                                            aria-label="切换深色模式">
+                                        <span><i class="fas fa-sun" aria-hidden="true"></i> / <i class="fas fa-moon" aria-hidden="true"></i></span>
+                                    </button>
+                                    <button type="button"
+                                            class="dark-button" 
+                                            id="language-switch-btn" 
+                                            onclick="switchLanguage()"
+                                            aria-label="切换语言">English</button>
+                                </div>
+                            </nav>
+                        </div>
+                    </section>
+
+                    <!-- Announcement Card -->
+                    <section class="card-widget card-announcement" aria-labelledby="announcement-heading">
+                        <div class="card-content">
+                            <div class="item-headline">
+                                <i class="fas fa-calendar" aria-hidden="true"></i>
+                                <h3 id="announcement-heading" data-i18n="site.notice">公告</h3>
+                            </div>
+                            <div>
+                                <p data-i18n="about.currentStatus">最近，学习中。</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Site Info Card -->
+                    <section class="card-widget card-webinfo" aria-labelledby="site-info-heading">
+                        <div class="card-content">
+                            <div class="item-headline">
+                                <i class="fas fa-chart-line" aria-hidden="true"></i>
+                                <h3 id="site-info-heading" data-i18n="site.siteInfo">站点信息</h3>
+                            </div>
+                            <div class="webinfo">
+                                <div class="webinfo-row">
+                                    <span class="webinfo-site-name" data-i18n="site.runningStatus">运行状态：</span>
+                                    <span class="webinfo-site-pv-count" data-i18n="site.normal">🟢 正常</span>
+                                </div>
+                                <div class="webinfo-row">
+                                    <span class="webinfo-site-name" data-i18n="site.myStatus">站长状态：</span>
+                                    <span class="webinfo-site-pv-count" data-i18n="site.alive">🟢 活着</span>
+                                </div>
+                                <div class="webinfo-row">
+                                    <span class="webinfo-site-name" data-i18n="site.servicesStatus">服务运行状态：</span>
+                                    <span class="webinfo-site-pv-count">
+                                        <a href="https://kuma.nekoc.cc/status/nya" 
+                                           data-i18n="site.view" 
+                                           data-i18n-title="websites.links.servicesStatus"
+                                           target="_blank" 
+                                           rel="noopener noreferrer">🟢 查看</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </aside>
+
+                <!-- Main Article -->
+                <article id="page" role="main" aria-labelledby="main-heading">
+                    <div class="article-container">
+                        <h1 id="main-heading" class="sr-only">CH的赞助页面</h1>
+
+                        <hr role="separator">
+                        
+                        <!-- Sponsor List Section -->
+                        <section aria-labelledby="sponsor-list-heading">
+                            <div class="item-headline" style="justify-content: center;">
+                                <i class="fas fa-heart" aria-hidden="true"></i>
+                                <h2 id="sponsor-list-heading" data-i18n="sponsor.title" style="font-weight: bold;font-size: larger;">赞助者列表</h2>
+                            </div>
+                            <div class="tool">
+                                <table id="sponsor" 
+                                       class="display" 
+                                       cellspacing="0" 
+                                       width="100%"
+                                       role="table"
+                                       aria-labelledby="sponsor-list-heading"
+                                       aria-describedby="sponsor-table-description">
+                                    <caption id="sponsor-table-description" class="sr-only">显示所有赞助者的姓名和捐赠金额</caption>
+                                    <thead>
+                                        <tr role="row">
+                                            <th scope="col" data-i18n="sponsor.sponsorColumn">赞助者</th>
+                                            <th scope="col" data-i18n="sponsor.amountColumn">金额</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Generate By sponsorlist.js -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <hr role="separator">
+
+                        <!-- Donation Methods Section -->
+                        <section aria-labelledby="donation-methods-heading">
+                            <div class="content">
+                                <div class="item-headline">
+                                    <i class="fas fa-gift" aria-hidden="true"></i>
+                                    <h2 id="donation-methods-heading" data-i18n="sponsor.chooseMethod">选择捐赠方式</h2>
+                                </div>
+                                <ul aria-label="捐赠方式选择">
+                                    <li>
+                                        <blockquote>
+                                            <button type="button" 
+                                                    class="spon" 
+                                                    onclick="sponsor_wechat()" 
+                                                    data-i18n="sponsor.wechatPay"
+                                                    data-i18n-title="sponsor.buttonTitles.wechatPay"
+                                                    aria-label="使用微信赞赏码进行捐赠">
+                                                使用微信赞赏码捐赠
+                                            </button>
+                                        </blockquote>
+                                    </li>
+                                    <li>
+                                        <blockquote>
+                                            <button type="button" 
+                                                    class="spon" 
+                                                    onclick="sponsor_patreon()" 
+                                                    data-i18n="sponsor.patreon"
+                                                    data-i18n-title="sponsor.buttonTitles.patreon"
+                                                    aria-label="使用Patreon进行捐赠">
+                                                使用Patreon捐赠
+                                            </button>
+                                        </blockquote>
+                                    </li>
+                                    <li>
+                                        <blockquote>
+                                            <button type="button" 
+                                                    class="spon" 
+                                                    onclick="sponsor_afdian()" 
+                                                    data-i18n="sponsor.afdian"
+                                                    data-i18n-title="sponsor.buttonTitles.afdian"
+                                                    aria-label="使用爱发电进行捐赠">
+                                                使用爱发电捐赠
+                                            </button>
+                                        </blockquote>
+                                    </li>
+                                    <li>
+                                        <blockquote>
+                                            <button type="button" 
+                                                    class="spon" 
+                                                    onclick="sponsor_opencollective()" 
+                                                    data-i18n="sponsor.openCollective"
+                                                    data-i18n-title="sponsor.buttonTitles.openCollective"
+                                                    aria-label="使用OpenCollective进行捐赠">
+                                                使用OpenCollective捐赠
+                                            </button>
+                                        </blockquote>
+                                    </li>
+                                </ul>
+                            </div>
+                        </section>
+                    </div>
+                </article>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer id="footer" role="contentinfo">
+            <div id="footer-wrap">
+                Copyright 2025 CH 每一天都是新的一天
+            </div>
+        </footer>
+    </div>
+    <script type="module" src="/src/sponsor.js"></script>
+</body>
+</html>

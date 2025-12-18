@@ -1,0 +1,258 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "cancel": "取消",
+    "confirm": "确认",
+    "yes": "是",
+    "no": "否",
+    "ok": "确定",
+    "close": "关闭",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "view": "查看",
+    "search": "搜索",
+    "filter": "筛选",
+    "sort": "排序",
+    "export": "导出",
+    "import": "导入",
+    "settings": "设置",
+    "help": "帮助",
+    "about": "关于",
+    "home": "首页",
+    "back": "返回",
+    "next": "下一个",
+    "previous": "上一个",
+    "first": "第一个",
+    "last": "最后一个",
+    "switchLanguage": "切换语言",
+    "chinese": "中文",
+    "english": "English"
+  },
+  "site": {
+    "title": "CH的主页",
+    "welcome": "欢迎",
+    "notice": "公告",
+    "socialMedia": "社交媒体",
+    "siteInfo": "站点信息",
+    "runningStatus": "运行状态：",
+    "myStatus": "站长状态：",
+    "servicesStatus": "服务运行状态：",
+    "normal": "🟢 正常",
+    "alive": "🟢 活着",
+    "view": "🟢 查看",
+    "description": "每一天都是新的一天",
+    "kawaii": "世界第一可爱！"
+  },
+  "navigation": {
+    "home": "首页",
+    "about": "关于",
+    "skills": "技能",
+    "websites": "相关站点",
+    "sponsor": "赞助",
+    "contact": "联系"
+  },
+  "about": {
+    "title": "关于 CH",
+    "greeting": "你好!这里是CH!目前还是在上学的吸血鬼萝莉魅魔!",
+    "disclaimer": "由于咱的想法有点奇奇怪怪，所以如果说看到任何沙雕repo，那都不是咱干的！一切都是隔壁QT!",
+    "hobby": "喜欢的事物有很多,但是目前最喜欢的是睡觉.",
+    "affiliation": "目前所属 GAS / GirlsAndScary",
+    "business": "商业合作请发邮件(不过咱真能接到商单吗qaq).",
+    "currentStatus": "最近，学习中。"
+  },
+  "skills": {
+    "title": "我的技能",
+    "html": "HTML",
+    "css": "CSS", 
+    "php": "PHP",
+    "python": "Python",
+    "cpp": "C++",
+    "java": "Java",
+    "cute": "可爱"
+  },
+  "websites": {
+    "title": "相关网站",
+    "neighborQt": "隔壁QT",
+    "gameServerList": "NekoC 游戏服务器列表",
+    "chFileShare": "CH GAS 公共文件共享",
+    "qtFileShare": "QT GAS 公共文件共享",
+    "sponsor": "赞助CC",
+    "pgpKey": "下载CH的PGP公钥",
+    "links": {
+      "neighborQt": "访问隔壁QT的主页",
+      "gameServerList": "查看NekoC游戏服务器列表",
+      "chFileShare": "访问CH GAS公共文件共享服务",
+      "qtFileShare": "访问QT GAS公共文件共享服务",
+      "sponsor": "前往赞助页面",
+      "pgpKey": "下载CH的PGP公钥文件",
+      "servicesStatus": "查看服务运行状态",
+      "qtnull": "访问QT的GitHub主页",
+      "nekocServer": "查看NekoC服务器列表"
+    }
+  },
+  "sponsor": {
+    "title": "赞助列表",
+    "sponsorColumn": "赞助者",
+    "amountColumn": "金额",
+    "chooseMethod": "选择捐赠方式",
+    "wechatPay": "使用微信赞赏码捐赠",
+    "patreon": "使用Patreon捐赠",
+    "afdian": "使用爱发电捐赠",
+    "openCollective": "使用OpenCollective捐赠",
+    "reallyTreat": "真的要请cc喝奶茶吗",
+    "goodPerson": "你果然是大好人！",
+    "noThanks": "不了，谢谢",
+    "buttonTitles": {
+      "wechatPay": "点击使用微信赞赏码进行捐赠",
+      "patreon": "点击使用Patreon平台进行捐赠",
+      "afdian": "点击使用爱发电平台进行捐赠",
+      "openCollective": "点击使用OpenCollective平台进行捐赠"
+    }
+  },
+  "messages": {
+    "copyCompleted": "复制完成！",
+    "copyFailed": "复制失败！",
+    "chooseDownloadLink": "选择下载链接",
+    "viaOpenPGP": "通过 OpenPGP.org",
+    "viaNekoCloud": "通过 NekoCloud",
+    "emailTitle": "电子邮箱",
+    "sessionIdTitle": "Session ID",
+    "copy": "复制"
+  },
+  "greetings": {
+    "morning": "早上好!",
+    "goodMorning": "Good morning",
+    "evening": "晚上好!",
+    "nightModeHint": "开启夜间模式可以让页面不那么刺眼哟~",
+    "nightMode": "夜间模式",
+    "lateNight": "凌晨了!",
+    "restWell": "注意休息~"
+  },
+  "browser": {
+    "titleFocus": "(ฅ>ω<*ฅ) 诶嘿嘿，你回来啦！",
+    "titleBlur": "╭(°A°`)╮ 你要去哪里？",
+    "ieWarning": "内个,这边建议您使用Chrome/Firefox浏览器呢~"
+  },
+  "console": {
+    "dailyMessage": "每天都是新的一天"
+  },
+  "socialMedia": {
+    "bilibili": "哔哩哔哩",
+    "github": "GitHub", 
+    "email": "邮箱",
+    "twitter": "Twitter",
+    "youtube": "Youtube频道",
+    "telegram": "Telegram",
+    "steam": "Steam",
+    "discord": "Discord频道",
+    "twitch": "Twitch",
+    "osu": "OSU!",
+    "session": "Session",
+    "links": {
+      "bilibili": "访问我的哔哩哔哩主页",
+      "github": "访问我的GitHub主页",
+      "email": "点击查看邮箱地址",
+      "twitter": "访问我的Twitter主页",
+      "youtube": "访问我的Youtube频道",
+      "telegram": "访问我的Telegram频道",
+      "steam": "访问我的Steam主页",
+      "discord": "访问我的Discord频道",
+      "twitch": "访问我的Twitch频道",
+      "osu": "访问我的OSU!主页",
+      "session": "查看Session ID"
+    }
+  },
+  "language": {
+    "current": "当前语言",
+    "switch": "切换语言",
+    "chinese": "中文",
+    "english": "English",
+    "zh": "Chinese",
+    "en": "English"
+
+  },
+  "theme": {
+    "dark": "深色模式",
+    "light": "浅色模式",
+    "toggle": "切换主题",
+    "buttonTitle": "切换深色/浅色模式"
+  },
+  "time": {
+    "formats": {
+      "short": "短格式",
+      "medium": "中等格式", 
+      "long": "长格式",
+      "full": "完整格式"
+    }
+  },
+  "errors": {
+    "networkError": "网络错误",
+    "loadFailed": "加载失败",
+    "resourceNotFound": "资源未找到",
+    "permissionDenied": "权限不足",
+    "unknown": "未知错误"
+  },
+  "examples": {
+    "title": "i18n 使用示例",
+    "description": "本页面展示了 i18n 系统的各种功能和使用方法",
+    "basic": {
+      "title": "基础翻译",
+      "welcome": "欢迎",
+      "message": "这是一个简单的翻译示例",
+      "status": "状态",
+      "online": "在线",
+      "time": "时间"
+    },
+    "interpolation": {
+      "title": "变量插值",
+      "userProfile": "用户资料",
+      "greeting": "你好，{{name}}！",
+      "userStats": "您有 {{posts}} 篇文章和 {{followers}} 个关注者",
+      "joinDate": "加入日期：{{date}}"
+    },
+    "pluralization": {
+      "title": "复数形式",
+      "shoppingCart": "购物车",
+      "cartItems": {
+        "zero": "购物车是空的",
+        "one": "购物车有 1 件商品",
+        "other": "购物车有 {{count}} 件商品"
+      },
+      "refresh": "刷新示例"
+    },
+    "formatting": {
+      "title": "格式化功能",
+      "price": "价格",
+      "visitors": "访问者",
+      "date": "日期",
+      "lastUpdate": "最后更新"
+    },
+    "dynamic": {
+      "title": "动态内容",
+      "description": "以下内容会根据语言变化自动更新：",
+      "addNotification": "添加通知",
+      "clearAll": "清除全部",
+      "notificationMessage": "通知 #{{count}} - {{time}}",
+      "errorMessage": "错误 #{{count}} - {{time}}",
+      "warningMessage": "警告 #{{count}} - {{time}}"
+    },
+    "namespace": {
+      "title": "命名空间"
+    },
+    "api": {
+      "title": "JavaScript API",
+      "runExample": "运行示例"
+    },
+    "performance": {
+      "title": "性能统计",
+      "refresh": "刷新统计",
+      "totalKeys": "总键数",
+      "languages": "语言数",
+      "namespaces": "命名空间",
+      "currentLanguage": "当前语言"
+    }
+  }
+}

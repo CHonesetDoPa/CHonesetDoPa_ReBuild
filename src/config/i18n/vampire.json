@@ -1,0 +1,264 @@
+{
+  "common": {
+    "loading": "血族秘术展开中...",
+    "error": "哼！居然敢出错！这是对吾之血族尊严的亵渎！",
+    "success": "呵呵呵～不愧是吾的血族力量！",
+    "cancel": "算了...本大人宽宏大量地放过你",
+    "confirm": "嗯！就这样决定了！",
+    "yes": "当然！吾之判断从不出错",
+    "no": "哼！才不要呢",
+    "ok": "知道了知道了",
+    "close": "那么...再见吧，愚蠢的人类",
+    "save": "将这份记忆永远封印在血之契约中",
+    "delete": "消失吧！化为血色的尘埃！",
+    "edit": "让本大人来重新编织这命运之线",
+    "view": "让吾用这猩红的瞳孔仔细观察",
+    "search": "寻找吧...就像夜晚寻找猎物一样",
+    "filter": "筛选出有价值的血液...呸，信息！",
+    "sort": "按照吾之意志重新排列！",
+    "export": "将这些秘密带出暗夜宫殿",
+    "import": "将外界的情报纳入吾之领域",
+    "settings": "调整血族宫殿的各项设定",
+    "help": "哼...本大人才不需要帮助呢！",
+    "about": "想了解伟大的血族萝莉吗？",
+    "home": "回到吾之暗夜宫殿",
+    "back": "退回到安全的阴影之中",
+    "next": "向着更深的黑暗前进！",
+    "previous": "回溯至过去的血色回忆",
+    "first": "最初的血色黎明",
+    "last": "最终的暗夜审判",
+    "switchLanguage": "切换血族古语模式",
+    "chinese": "东方血族古语",
+    "english": "西方血族通用语"
+  },
+  "site": {
+    "title": "血族萝莉CH的暗夜宫殿",
+    "welcome": "欢迎来到吾之领域，凡人",
+    "notice": "血族宫殿公告",
+    "socialMedia": "血族社交圈",
+    "siteInfo": "暗夜宫殿情报",
+    "runningStatus": "血族封印状态：",
+    "myStatus": "吾之生命力：",
+    "servicesStatus": "暗夜仆从工作状态：",
+    "normal": "血族力量充盈",
+    "alive": "永恒不死之身",
+    "view": "月夜视界开启",
+    "description": "每一个夜晚都是全新的狩猎时光",
+    "kawaii": "世界第一可爱的吸血鬼萝莉！"
+  },
+  "navigation": {
+    "home": "暗夜宫殿",
+    "about": "血族秘史",
+    "skills": "血族能力",
+    "websites": "领域扩张",
+    "sponsor": "血之契约",
+    "contact": "召唤术式"
+  },
+  "about": {
+    "title": "关于血族萝莉CH",
+    "greeting": "吾名CH！永恒十七岁的高贵血族萝莉魅魔！现在还在人类学校潜伏中！",
+    "disclaimer": "由于吾之血族思维过于深奥，如果看到任何奇怪的repo，那绝对不是本大人的杰作！都是隔壁那个可疑的QT干的！",
+    "hobby": "吾喜欢的事物数不胜数，但目前最爱的还是在棺材里的安眠时光呢",
+    "affiliation": "目前隶属于 GAS / GirlsAndScary 血族议会",
+    "business": "若要与本大人进行血之契约，请通过魔法邮件联系（虽然本大人真的能接到委托吗...）",
+    "currentStatus": "最近，在人类世界努力学习中。"
+  },
+  "skills": {
+    "title": "吾之血族能力",
+    "html": "血族古代文字HTML操控术",
+    "css": "暗夜美学CSS幻术",
+    "php": "服务器支配PHP暗黑魔法",
+    "cute": "无敌萝莉可爱术"
+  },
+  "websites": {
+    "title": "血族领域网络",
+    "neighborQt": "隔壁神秘的QT",
+    "gameServerList": "NekoC 游戏血盟服务器",
+    "chFileShare": "CH血族公共宝库",
+    "qtFileShare": "QT血族公共宝库",
+    "sponsor": "向CC献上贡品",
+    "pgpKey": "获取CH的血族秘钥",
+    "links": {
+      "neighborQt": "造访隔壁QT的神秘领域",
+      "gameServerList": "查看NekoC游戏血盟列表",
+      "chFileShare": "进入CH血族公共宝库",
+      "qtFileShare": "进入QT血族公共宝库",
+      "sponsor": "前往贡品献祭之地",
+      "pgpKey": "下载CH的血族秘钥文件",
+      "servicesStatus": "查看血族仆从工作状态",
+      "qtnull": "造访QT的GitHub暗黑据点",
+      "nekocServer": "查看NekoC血盟服务器"
+    }
+  },
+  "sponsor": {
+    "title": "血之契约献祭名单",
+    "sponsorColumn": "忠诚的信徒",
+    "amountColumn": "献祭数量",
+    "chooseMethod": "选择献祭方式",
+    "wechatPay": "使用微信血色印记献祭",
+    "patreon": "使用Patreon异界献祭",
+    "afdian": "使用爱发电雷电献祭",
+    "openCollective": "使用OpenCollective集体献祭",
+    "reallyTreat": "真的要向血族萝莉cc献上血红的奶茶吗？",
+    "goodPerson": "你果然是个好人呢！吾认可了你的忠诚！",
+    "noThanks": "算了...本大人不强求凡人的供奉",
+    "buttonTitles": {
+      "wechatPay": "点击使用微信血色印记进行献祭",
+      "patreon": "点击使用Patreon异界平台进行献祭",
+      "afdian": "点击使用爱发电雷电平台进行献祭",
+      "openCollective": "点击使用OpenCollective集体平台进行献祭"
+    }
+  },
+  "messages": {
+    "copyCompleted": "血族秘术复制完成！",
+    "copyFailed": "哼！复制咒语失败了...这一定是封印出了问题！",
+    "chooseDownloadLink": "选择传送门路径",
+    "viaOpenPGP": "通过 OpenPGP 暗黑通道",
+    "viaNekoCloud": "通过 NekoCloud 猫咪云端",
+    "emailTitle": "血族通信法阵",
+    "sessionIdTitle": "会话暗号",
+    "copy": "血族复制术"
+  },
+  "greetings": {
+    "morning": "早安！虽然吾讨厌阳光...但早起的血族萝莉是最可爱的！",
+    "goodMorning": "Good morning，我的人类朋友",
+    "evening": "夜幕降临！这是属于吾之血族的时间！",
+    "nightModeHint": "开启暗夜模式可以保护你脆弱的人类双眼哦",
+    "nightMode": "血族暗夜模式",
+    "lateNight": "已经是深夜了！正是血族活跃的时刻！",
+    "restWell": "即使是血族也需要在棺材里好好休息"
+  },
+  "browser": {
+    "titleFocus": "呵呵呵～终于回到吾的怀抱了！",
+    "titleBlur": "哼！居然敢离开本大人的领域！",
+    "ieWarning": "那个...建议你使用Chrome/Firefox来浏览吾的暗夜宫殿呢～IE太古老了，连血族都嫌弃！"
+  },
+  "console": {
+    "dailyMessage": "每一个暗夜都是血族新的开始"
+  },
+  "socialMedia": {
+    "bilibili": "哔哩哔哩血族频道",
+    "github": "GitHub暗黑代码库",
+    "email": "血族专用邮箱",
+    "twitter": "Twitter血族推特",
+    "youtube": "Youtube血族影院",
+    "telegram": "Telegram血族密令",
+    "steam": "Steam血族游戏库",
+    "discord": "Discord血族语音殿堂",
+    "twitch": "Twitch血族直播",
+    "osu": "OSU!血族音游挑战",
+    "session": "血族会话暗号",
+    "links": {
+      "bilibili": "造访吾的哔哩哔哩血族领地",
+      "github": "进入吾的GitHub暗黑代码库",
+      "email": "点击查看血族专用邮箱地址",
+      "twitter": "造访吾的Twitter血族推特",
+      "youtube": "观赏吾的Youtube血族影院",
+      "telegram": "加入吾的Telegram血族密令频道",
+      "steam": "进入吾的Steam血族游戏库",
+      "discord": "加入吾的Discord血族语音殿堂",
+      "twitch": "观看吾的Twitch血族直播",
+      "osu": "挑战吾的OSU!血族音游记录",
+      "session": "查看血族会话暗号"
+    }
+  },
+  "language": {
+    "current": "当前血族语言",
+    "switch": "切换血族古语",
+    "chinese": "东方血族古语",
+    "english": "西方血族通用语",
+    "zh": "东方血族语",
+    "en": "西方血族语",
+    "vampire": "血族古语"
+  },
+  "theme": {
+    "dark": "血族暗夜模式",
+    "light": "讨厌的阳光模式",
+    "toggle": "切换暗夜/阳光模式",
+    "buttonTitle": "在血族暗夜与讨厌的阳光之间切换"
+  },
+  "time": {
+    "formats": {
+      "short": "血族简化计时",
+      "medium": "血族标准计时",
+      "long": "血族详细计时",
+      "full": "血族完整纪元"
+    }
+  },
+  "errors": {
+    "networkError": "血族网络连接被诅咒了！",
+    "loadFailed": "加载失败！这一定是封印出了问题！",
+    "resourceNotFound": "资源消失在暗夜迷雾中...",
+    "permissionDenied": "哼！凡人没有权限进入吾之禁地！",
+    "unknown": "发生了连血族都无法理解的神秘错误..."
+  },
+  "examples": {
+    "title": "血族古语系统使用示例",
+    "description": "本页面展示了血族古语系统的各种血族魔法功能",
+    "basic": {
+      "title": "基础血族翻译术",
+      "welcome": "欢迎进入血族领域",
+      "message": "这是一个简单的血族翻译咒语示例",
+      "status": "血族状态",
+      "online": "血族在线",
+      "time": "血族时间"
+    },
+    "interpolation": {
+      "title": "血族变量注入术",
+      "userProfile": "血族档案",
+      "greeting": "你好，{{name}}！欢迎加入血族！",
+      "userStats": "你拥有 {{posts}} 篇血族日记和 {{followers}} 个忠实信徒",
+      "joinDate": "血族转化日期：{{date}}"
+    },
+    "pluralization": {
+      "title": "血族复数形态术",
+      "shoppingCart": "血族宝物车",
+      "cartItems": {
+        "zero": "血族宝物车是空的",
+        "one": "血族宝物车有 1 件神秘物品",
+        "other": "血族宝物车有 {{count}} 件神秘物品"
+      },
+      "refresh": "刷新血族示例"
+    },
+    "formatting": {
+      "title": "血族格式化魔法",
+      "price": "血族价格",
+      "visitors": "访问者（潜在血仆）",
+      "date": "血族历法",
+      "lastUpdate": "最后一次血族更新"
+    },
+    "dynamic": {
+      "title": "血族动态内容",
+      "description": "以下内容会根据血族古语变化自动更新：",
+      "addNotification": "添加血族通知",
+      "clearAll": "清除全部血族记录",
+      "notificationMessage": "血族通知 #{{count}} - {{time}}",
+      "errorMessage": "血族错误 #{{count}} - {{time}}",
+      "warningMessage": "血族警告 #{{count}} - {{time}}"
+    },
+    "namespace": {
+      "title": "血族命名空间领域"
+    },
+    "api": {
+      "title": "血族JavaScript召唤术API",
+      "runExample": "执行血族示例"
+    },
+    "performance": {
+      "title": "血族性能统计",
+      "refresh": "刷新血族统计",
+      "totalKeys": "血族秘钥总数",
+      "languages": "血族语言数量",
+      "namespaces": "血族命名空间",
+      "currentLanguage": "当前血族古语"
+    }
+  },
+  "vampireMode": {
+    "activation": {
+      "title": "血族觉醒！",
+      "message": "呵呵呵～你终于发现了隐藏的血族秘密！现在暂时切换到吾之血族古语模式！",
+      "button": "哼！本大人知道了"
+    },
+    "welcome": "欢迎来到血族萝莉的暗夜领域！",
+    "description": "你已成功激活血族彩蛋，现在可以体验中二病爆棚的吸血鬼萝莉语言包！"
+  }
+}

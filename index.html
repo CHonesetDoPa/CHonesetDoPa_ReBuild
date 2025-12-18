@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="CH's HomePage">
+    <meta name="keywords" content="CH, CHonesetDoPa">
+    <meta name="author" content="CH">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <!-- Icon -->
+    <link rel="icon" href="/favicon.ico">
+
+    <title data-i18n="site.title">CH's HomePage</title>
+
+</head>
+
+<body>
+    
+    <div id="body-wrap">
+        <!-- Hero Section -->
+        <header class="hero-section not_index_bg" id="nav" role="banner">
+            <div id="page_site-info">
+                <section id="site-title" role="heading" aria-level="1">
+                    <span class="blogtitle" aria-live="polite"></span>
+                </section>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main id="content-outer" role="main">
+            <div class="layout_page" id="content-inner">
+                <!-- Sidebar -->
+                <aside class="aside_content" id="aside_content" role="complementary" aria-label="侧边栏信息">
+                    <!-- Profile Card -->
+                    <section class="card-widget card-info" aria-labelledby="profile-heading">
+                        <h2 id="profile-heading" class="sr-only">个人资料</h2>
+                        <div class="card-content">
+                            <div class="card-info-avatar is-center">
+                                <img class="avatar-img" 
+                                    id="avatar"
+                                     alt="CH的头像" 
+                                     width="120" 
+                                     height="120"
+                                     loading="eager">
+                                <div class="author-info__name">
+                                    <span><strong>CH</strong></span>
+                                </div>
+                                <div class="author-info__description" data-i18n="site.kawaii">
+                                    世界第一可爱！
+                                </div>
+                            </div>
+                            <nav class="card-info-social-icons is-center" aria-label="社交媒体和功能">
+                                <div id="social-media-icons-placeholder" aria-label="社交媒体链接"></div>
+                                <br>
+
+                                <div class="control-buttons" role="group" aria-label="页面控制">
+                                    <button type="button"
+                                            class="dark-button" 
+                                            onclick="dark()" 
+                                            style="vertical-align:middle" 
+                                            data-i18n-title="theme.buttonTitle"
+                                            aria-label="切换深色模式">
+                                        <span><i class="fas fa-sun" aria-hidden="true"></i> / <i class="fas fa-moon" aria-hidden="true"></i></span>
+                                    </button>
+                                    <button type="button"
+                                            class="dark-button" 
+                                            id="language-switch-btn" 
+                                            onclick="switchLanguage()"
+                                            aria-label="切换语言">English</button>
+                                </div>
+                            </nav>
+                        </div>
+                    </section>
+
+                    <!-- Announcement Card -->
+                    <section class="card-widget card-announcement" aria-labelledby="announcement-heading">
+                        <div class="card-content">
+                            <div class="item-headline">
+                                <i class="fas fa-calendar" aria-hidden="true"></i>
+                                <h3 id="announcement-heading" data-i18n="site.notice">公告</h3>
+                            </div>
+                            <div>
+                                <p data-i18n="about.currentStatus">最近，学习中。</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Social Media Card -->
+                    <section class="card-widget card-announcement" aria-labelledby="social-media-heading">
+                        <div class="card-content">
+                            <div class="item-headline">
+                                <i class="fas fa-file-lines" aria-hidden="true"></i>
+                                <h3 id="social-media-heading" data-i18n="site.socialMedia">社交媒体</h3>
+                            </div>
+                            <nav id="social-media-list" aria-label="社交媒体平台列表">
+                                <!-- Generate By link-manager.js -->
+                            </nav>
+                        </div>
+                    </section>
+
+                    <!-- Site Info Card -->
+                    <section class="card-widget card-webinfo" aria-labelledby="site-info-heading">
+                        <div class="card-content">
+                            <div class="item-headline">
+                                <i class="fas fa-chart-line" aria-hidden="true"></i>
+                                <h3 id="site-info-heading" data-i18n="site.siteInfo">站点信息</h3>
+                            </div>
+                            <div class="webinfo">
+                                <div class="webinfo-row">
+                                    <span class="webinfo-site-name" data-i18n="site.runningStatus">运行状态：</span>
+                                    <span class="webinfo-site-pv-count" data-i18n="site.normal">🟢 正常</span>
+                                </div>
+                                <div class="webinfo-row">
+                                    <span class="webinfo-site-name" data-i18n="site.myStatus">站长状态：</span>
+                                    <span class="webinfo-site-pv-count" data-i18n="site.alive">🟢 活着</span>
+                                </div>
+                                <div class="webinfo-row">
+                                    <span class="webinfo-site-name" data-i18n="site.servicesStatus">服务运行状态：</span>
+                                    <span class="webinfo-site-pv-count">
+                                        <a href="https://kuma.nekoc.cc/status/nya" 
+                                           data-i18n="site.view" 
+                                           data-i18n-title="websites.links.servicesStatus"
+                                           target="_blank" 
+                                           rel="noopener noreferrer">🟢 查看</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </aside>
+
+                <!-- Main Article -->
+                <article id="page" role="main" aria-labelledby="main-heading">
+                    <div class="article-container">
+                        <h1 id="main-heading" class="sr-only">CH的个人主页</h1>
+
+                        <hr role="separator">
+                        
+                        <!-- About Section -->
+                        <section aria-labelledby="about-heading">
+                            <div class="item-headline">
+                                <i class="fas fa-user" aria-hidden="true"></i>
+                                <h2 id="about-heading" data-i18n="about.title">关于 CH</h2>
+                            </div>
+                            <div class="tool">
+                                <p>
+                                    <span data-i18n="about.greeting">
+                                        你好!这里是CH!目前还是在上学的吸血鬼萝莉魅魔!
+                                    </span><br>
+                                    <span data-i18n="about.disclaimer">
+                                        由于咱的想法有点奇奇怪怪，所以如果说看到任何沙雕repo，那都不是咱干的！一切都是隔壁QT!
+                                    </span><br>
+                                    <span data-i18n="about.hobby">
+                                        喜欢的事物有很多,但是目前最喜欢的是睡觉.
+                                    </span><br>
+                                    <span data-i18n="about.affiliation">
+                                        目前所属 GAS / GirlsAndScary
+                                    </span><br>
+                                    <span data-i18n="about.business">
+                                        商业合作请发邮件(不过咱真能接到商单吗qaq).
+                                    </span><br>
+                                </p>
+                            </div>
+                        </section>
+
+                        <hr role="separator">
+                        
+                        <!-- Skills Section -->
+                        <section aria-labelledby="skills-heading">
+                            <div class="item-headline">
+                                <i class="fas fa-code" aria-hidden="true"></i>
+                                <h2 id="skills-heading" data-i18n="skills.title">我的技能</h2>
+                            </div>
+                            <div class="skillbox" role="group" aria-label="技能展示">
+                                <div class="skillbar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" aria-label="HTML技能 65%">
+                                    <div class="skillbar-title"
+                                         style="background: linear-gradient(to right, #FF0066 0%, #FF00CC 100%); width: 65%">
+                                        <span>HTML</span>
+                                    </div>
+                                    <div class="skill-bar-percent" aria-hidden="true">65%</div>
+                                </div>
+                                <div class="skillbar" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" aria-label="CSS技能 35%">
+                                    <div class="skillbar-title"
+                                         style="background: linear-gradient(to right, #9900FF 0%, #CC66FF 100%); width: 35%">
+                                        <span>CSS</span>
+                                    </div>
+                                    <div class="skill-bar-percent" aria-hidden="true">35%</div>
+                                </div>
+                                <div class="skillbar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" aria-label="PHP技能 45%">
+                                    <div class="skillbar-title"
+                                         style="background: linear-gradient(to right, #2196F3 0%, #42A5F5 100%); width: 45%">
+                                        <span>PHP</span>
+                                    </div>
+                                    <div class="skill-bar-percent" aria-hidden="true">45%</div>
+                                </div>
+                                <div class="skillbar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="Python技能 75%">
+                                    <div class="skillbar-title"
+                                         style="background: linear-gradient(to right, #3776AB 0%, #4B8BBE 100%); width: 75%">
+                                        <span>Python</span>
+                                    </div>
+                                    <div class="skill-bar-percent" aria-hidden="true">75%</div>
+                                </div>
+                                <div class="skillbar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="C++技能 60%">
+                                    <div class="skillbar-title"
+                                         style="background: linear-gradient(to right, #00599C 0%, #004482 100%); width: 60%">
+                                        <span>C++</span>
+                                    </div>
+                                    <div class="skill-bar-percent" aria-hidden="true">60%</div>
+                                </div>
+                                <div class="skillbar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" aria-label="Java技能 70%">
+                                    <div class="skillbar-title"
+                                         style="background: linear-gradient(to right, #ED8B00 0%, #F89820 100%); width: 70%">
+                                        <span>Java</span>
+                                    </div>
+                                    <div class="skill-bar-percent" aria-hidden="true">70%</div>
+                                </div>
+                                <div class="skillbar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="可爱技能 100%">
+                                    <div class="skillbar-title"
+                                         style="background: linear-gradient(to right, #FFEB3B 0%, #FFF176 100%); width:100%">
+                                        <span>Cute</span>
+                                    </div>
+                                    <div class="skill-bar-percent" aria-hidden="true">100%</div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <hr role="separator">
+                        
+                        <!-- Related Websites Section -->
+                        <section aria-labelledby="websites-heading">
+                            <div class="item-headline">
+                                <i class="fas fa-link" aria-hidden="true"></i>
+                                <h2 id="websites-heading" data-i18n="websites.title">相关网站</h2>
+                            </div>
+                            <nav class="tool" id="related-sites-list" aria-label="相关网站链接">
+                                <!-- Generate By link-manager.js -->
+                            </nav>
+                        </section>
+                    </div>
+                </article>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer id="footer" role="contentinfo">
+            <div id="footer-wrap">
+                Copyright 2025 CH 每一天都是新的一天
+            </div>
+        </footer>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
