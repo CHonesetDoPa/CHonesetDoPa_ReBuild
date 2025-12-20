@@ -1,5 +1,13 @@
 # CH's HomePage
 
+# ⚠️ 更改说明
+
+本项目模板已迁移至 [CyanHomePage](https://github.com/CHonesetDoPa/CyanHomePage)。
+
+本仓库继续以开源形式保留源代码，但**不再提供维护与支持**。
+
+如需模板相关支持与更新，请前往新项目 [CyanHomePage](https://github.com/CHonesetDoPa/CyanHomePage)。
+
 基于原生 JavaScript 和 Vite 构建的轻量交互式个人主页，重构自原项目。
 
 ## 技术栈
